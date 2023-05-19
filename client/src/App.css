@@ -89,13 +89,13 @@ nav ul {
 .navLight ul a, .navLight a {
   text-decoration: none;
   color: black;
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
 }
 
 .navDark ul a, .navDark a {
   text-decoration: none;
   color: lightgrey;
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
 }
 
 .navDark h1, .navDark h4 {
@@ -121,6 +121,8 @@ nav ul {
 table, th, td {
   border: 1px solid;
   padding: 10px;
+  /* margin: auto */
+
 }
 
 .regLog {
@@ -133,4 +135,28 @@ table, th, td {
 }
 .darkText {
   color: darkslategrey
+}
+.idea {
+  line-height: 2;
+}
+
+.MQHide {
+  display: none
+}
+@media (width < 900px) {
+  .MQHide {
+    display: block
+  }
+  nav h1, nav h4, nav a, nav span {
+    font-size: 1rem;
+    /* color: red; */
+  }
+}
+.ideaList {
+  /* margin-left: 50%; */
+}
+@media (width < 900px) {
+  .ideaList {
+    margin-left: 10%;
+  }
 }

@@ -4,11 +4,10 @@ import axios from 'axios'
 
 const RegisterForm = (props) => {
     const { setLoggedIn, count, setCount } = props
-
     const navigate = useNavigate();
     const [errors, setErrors] = useState({})
     const [userInfoReg, setUserInfoReg] = useState({
-        firstName: "",
+        name: "",
         displayName: "",
         email: "",
         password: "",
@@ -37,7 +36,7 @@ const RegisterForm = (props) => {
         axios.post('http://localhost:8000/api/users/register', userInfoReg, { withCredentials: true })
             .then(res => {
                 // console.log(res);
-                setCount(count + 1)
+                setCount(count + 1) //update nav username & logout button
                 navigate('/dashboard')
                 setLoggedIn(true)
                 window.location.reload()
@@ -46,7 +45,7 @@ const RegisterForm = (props) => {
             .catch(err => {
                 console.log(`submit errer`, err)
                 setErrors({
-                    firstName: err.response.data.errors.firstName,
+                    name: err.response.data.errors.name,
                     displayName: err.response.data.errors.displayName,
                     email: err.response.data.errors.email,
                     password: err.response.data.errors.password,
@@ -62,6 +61,8 @@ const RegisterForm = (props) => {
             .then(res => {
                 setCount(count + 1) //update nav username & logout button
                 navigate('/dashboard')
+                setLoggedIn(true)
+                window.location.reload()
             })
             .catch(err => {
                 console.log(`login errer`, err)
@@ -73,15 +74,15 @@ const RegisterForm = (props) => {
     }
 
     return (
-        <div className='row col-6 mx-auto mt-5'>
+        <div className='row col-sm-6 mx-auto mt-5'>
             <br />
             <div className='col'>
                 <form className="regLog" onSubmit={regSubmit}>
                     <h3>Register</h3>
-                    {errors.firstName ? <p className="text-danger">{errors.firstName.message}</p> : null}
+                    {errors.name ? <p className="text-danger">{errors.name.message}</p> : null}
                     <div className="form-group">
-                        <label className='form-label'>First Name</label>
-                        <input type="text" className="form-control" name="firstName" value={userInfoReg.firstName} onChange={regChange} />
+                        <label className='form-label'>Name</label>
+                        <input type="text" className="form-control" name="name" value={userInfoReg.name} onChange={regChange} />
                     </div>
                     {errors.displayName ? <p className="text-danger">{errors.displayName.message}</p> : null}
                     <div className="form-group">

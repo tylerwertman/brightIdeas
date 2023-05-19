@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import jwtdecode from 'jwt-decode'
 import Cookies from 'js-cookie'
 
 const Nav = (props) => {
     const { cookieValue, user, setUser, welcome, setWelcome, loggedIn, setLoggedIn, count, darkMode, setDarkMode } = props
     const navigate = useNavigate()
+    const url = useParams()
 
     useEffect(() => {
         if (cookieValue) {
-            setWelcome(jwtdecode(cookieValue).firstName + " (@" + jwtdecode(cookieValue).displayName + ")")
+            setWelcome(jwtdecode(cookieValue).name + " (@" + jwtdecode(cookieValue).displayName + ")")
         }
         // eslint-disable-next-line
     }, [count])
@@ -78,6 +79,7 @@ const Nav = (props) => {
         <nav className={darkMode ? "navDark" : "navLight"}>
             <div>
                 <h1 style={{ display: 'inline' }} onClick={(navHome)}>Bright Ideas</h1>
+                <br className='MQHide' />
                 {
                     welcome !== "Guest" ?
                         <span><h4 style={{ display: 'inline' }}>Welcome, </h4><Link to={`/users/${user?._id}`}>{welcome}</Link></span> :
@@ -92,7 +94,7 @@ const Nav = (props) => {
                         // (loggedIn) ?
                         <><button className='btn btn-danger' onClick={logout}>Logout</button>&nbsp;&nbsp;</>
                         :
-                        <Link to="/">Login/Register&nbsp;&nbsp;</Link>
+                        null
                 }
                 <button className={darkMode ? "btn btn-success" : "btn btn-dark"} onClick={colorToggle}>{darkMode ? "☀️" : "🌙"}</button>
             </div>
