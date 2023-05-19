@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import withAuth from './WithAuth'
-import { toast } from 'react-toastify';
 
 
 const IdeaDetail = (props) => {
-    const { welcome, user, darkMode } = props
+    const { darkMode } = props
     const { id } = useParams()
     const navigate = useNavigate();
     const [oneUser, setOneUser] = useState({})

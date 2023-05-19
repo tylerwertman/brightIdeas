@@ -152,9 +152,6 @@ table, th, td {
     /* color: red; */
   }
 }
-.ideaList {
-  /* margin-left: 50%; */
-}
 @media (width < 900px) {
   .ideaList {
     margin-left: 10%;

@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import jwtdecode from 'jwt-decode'
 import Cookies from 'js-cookie'
 
 const Nav = (props) => {
     const { cookieValue, user, setUser, welcome, setWelcome, loggedIn, setLoggedIn, count, darkMode, setDarkMode } = props
     const navigate = useNavigate()
-    const url = useParams()
 
     useEffect(() => {
         if (cookieValue) {
