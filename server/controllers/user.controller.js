@@ -29,10 +29,10 @@ module.exports= {
                     const userToken = jwt.sign({_id:user.id, email:user.email, name:user.name, displayName:user.displayName, ideasFavorited: user.ideasFavorited}, secret, {expiresIn: "1d"});
                     res.cookie("userToken", userToken, {httpOnly:false}).json({msg: "Login success!", user: user})
                 }else {
-                    res.status(400).json({msg: "Invalid login attempt"})
+                    res.status(400).json({message: "Invalid login attempt"})
                 }
             }else {
-                res.status(400).json({msg: "Invalid login attempt"})
+                res.status(400).json({message: "Invalid login attempt"})
             }
         }catch(err){
             console.log(err);

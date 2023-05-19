@@ -67,7 +67,7 @@ const RegisterForm = (props) => {
             .catch(err => {
                 console.log(`login errer`, err)
                 setErrors({
-                    msg: err.response.data.msg
+                    message: err.response.data.message
                 })
                 console.log(errors)
             })
@@ -112,7 +112,7 @@ const RegisterForm = (props) => {
             <div className='col'>
                 <form className="regLog" onSubmit={logSubmit}>
                     <h3>Login</h3>
-                    {errors.msg ? <p className="text-danger">{errors.msg}</p> : null}
+                    {errors.message ? <p className="text-danger">{errors.message}</p> : null}
                     <div className="form-group">
                         <label className='form-label'>Email</label>
                         <input type="email" className="form-control" name="email" value={userInfoLog.email} onChange={logChange} />
