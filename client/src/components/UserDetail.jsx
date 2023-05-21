@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import withAuth from './WithAuth'
 
 
@@ -32,20 +32,20 @@ const IdeaDetail = (props) => {
             <h3>Name: {oneUser?.name}</h3>
             <h3>Display Name: @{oneUser?.displayName}</h3>
             <hr />
-            <h5 style={{textDecoration:"underline"}}>@{oneUser.displayName} posted {oneUser.ideasAdded?.length} ideas</h5>
+            <h5 style={{ textDecoration: "underline" }}>@{oneUser.displayName} posted {oneUser.ideasAdded?.length} ideas</h5>
             {oneUser.ideasAdded?.map((ideasAdded, i) => {
                 return (
                     <div key={ideasAdded._id}>
-                        <p className={darkMode ? "lightText" : null}>•({ideasAdded.favoritedBy?.length} {ideasAdded.favoritedBy?.length === 1 ? "Like" : "Likes"}) {ideasAdded.idea}</p>
+                        <p className={darkMode ? "lightText" : null}>•({ideasAdded.favoritedBy?.length} {ideasAdded.favoritedBy?.length === 1 ? "Like" : "Likes"}) <Link to={`/ideas/${ideasAdded._id}`}>{ideasAdded.idea}</Link></p>
                     </div>
                 )
             })}
             <br />
-            <h5 style={{textDecoration:"underline"}}>@{oneUser.displayName} liked {oneUser.ideasFavorited?.length} ideas</h5>
+            <h5 style={{ textDecoration: "underline" }}>@{oneUser.displayName} liked {oneUser.ideasFavorited?.length} ideas</h5>
             {oneUser.ideasFavorited?.map((ideasFaved, i) => {
                 return (
                     <div key={ideasFaved._id}>
-                        <p className={darkMode ? "lightText" : null}>•({ideasFaved.favoritedBy?.length} {ideasFaved.favoritedBy?.length === 1 ? "Like" : "Likes"}) {ideasFaved.idea}</p>
+                        <p className={darkMode ? "lightText" : null}>•({ideasFaved.favoritedBy?.length} {ideasFaved.favoritedBy?.length === 1 ? "Like" : "Likes"}) <Link to={`/ideas/${ideasFaved._id}`}>{ideasFaved.idea}</Link></p>
                     </div>
                 )
             })}
