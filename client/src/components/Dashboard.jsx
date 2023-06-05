@@ -11,6 +11,7 @@ const Dashboard = (props) => {
     const [ideaList, setIdeaList] = useState([])
     const [oneIdea, setOneIdea] = useState({ idea: "" })
     const [errors, setErrors] = useState({})
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const toastAdded = () => toast.success(`➕ You added an idea`, {
         position: "bottom-right",
         autoClose: 2500,
@@ -51,6 +52,16 @@ const Dashboard = (props) => {
         progress: undefined,
         theme: darkMode ? "dark" : "light"
     });
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/ideas`)
@@ -143,24 +154,34 @@ const Dashboard = (props) => {
 
     return (
         <div>
-            <h1 style={{marginTop:"75px"}}>Welcome to Bright Ideas</h1>
+            <h1 style={{ marginTop: "75px" }}>Welcome to Bright Ideas</h1>
             <div className={darkMode ? "mainDivDark" : "mainDivLight"}>
                 {/* <button className="btn btn-danger" onClick={() => sort()}>Sort</button> */}
-                <div className={darkMode ? "col-sm-6 mx-auto bg-dark text-light" : "col-sm-6 mx-auto"}>
-                    <form className={darkMode ? "mx-auto bg-dark text-light mt-5" : "mx-auto mt-5"} onSubmit={submitHandler}>
-                        {oneIdea.idea && oneIdea.idea?.length < 2 ? <p className="text-danger">Idea must be at least 2 characters</p> : null}
-                        {errors.idea ? <p className="text-danger">{errors.idea.message}</p> : null}
-                        <div className="input-group">
-                            <div className="form-floating">
-                                <input type="text" className="form-control" name="idea" value={oneIdea.idea} onChange={changeHandler} placeholder='Add a new idea!' />
-                                <label className="darkText" htmlFor="idea">Add a new idea!</label>
+                <div className={darkMode ? "col-sm-8 mx-auto bg-dark text-light" : "col-sm-8 mx-auto"}>
+                    {windowWidth > 575 ?
+                        (<form className={darkMode ? "mx-auto bg-dark text-light mt-5" : "mx-auto mt-5"} onSubmit={submitHandler}>
+                            {oneIdea.idea && oneIdea.idea?.length < 2 ? <p className="text-danger">Idea must be at least 2 characters</p> : null}
+                            {errors.idea ? <p className="text-danger">{errors.idea.message}</p> : null}
+                            <div className="input-group col-10">
+                                <div className="form-floating">
+                                    <input type="text" className="form-control" name="idea" value={oneIdea.idea} onChange={changeHandler} placeholder='Add a new idea!' />
+                                    <label className="darkText" htmlFor="idea">Add a new idea!</label>
+                                </div>
+                                <button type="submit" className="input-group-text btn btn-success" onSubmit={submitHandler}>Add idea!</button>
                             </div>
-                            <button type="submit" className="input-group-text btn btn-success" onSubmit={submitHandler}>Add idea!</button>
-                        </div>
-                    </form>
+                        </form>) :
+                        (<form className={darkMode ? "mx-auto bg-dark text-light mt-5" : "mx-auto mt-5"} onSubmit={submitHandler}>
+                            {oneIdea.idea && oneIdea.idea?.length < 2 ? <p className="text-danger">Idea must be at least 2 characters</p> : null}
+                            {errors.idea ? <p className="text-danger">{errors.idea.message}</p> : null}
+                                <div className="form-floating col-10 mx-auto">
+                                    <input type="text" className="form-control" name="idea" value={oneIdea.idea} onChange={changeHandler} placeholder='Add a new idea!' />
+                                    <label className="darkText" htmlFor="idea">Add a new idea!</label>
+                                </div>
+                                <button type="submit" className="input-group-text btn btn-success mt-3 col-10" onSubmit={submitHandler}>Add idea!</button>
+                        </form>)}
                 </div>
                 <h3 className='mt-3'>All Ideas</h3>
-                <div className='col-6 offset-3 text-start ideaList'>
+                <div className='col-8 mx-auto text-start ideaList'>
                     {ideaList.map((idea, index) => {
                         return (
 

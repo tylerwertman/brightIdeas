@@ -37,7 +37,7 @@ const RegisterForm = (props) => {
             .then(res => {
                 // console.log(res);
                 setCount(count + 1) //update nav username & logout button
-                navigate('/dashboard')
+                navigate('/')
                 setLoggedIn(true)
                 window.location.reload()
 
